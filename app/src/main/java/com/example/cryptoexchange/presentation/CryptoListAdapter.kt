@@ -1,6 +1,7 @@
 package com.example.cryptoexchange.presentation
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,10 @@ import com.example.cryptoexchange.domain.CryptoItem
 class CryptoListAdapter() : RecyclerView.Adapter<CryptoListAdapter.ViewHolder>() {
 
     var cryptoItemList = listOf<CryptoItem>()
+        set(value) {
+            field = value
+            notifyDataSetChanged() //FIXME
+        }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val name = view.findViewById<TextView>(R.id.name)

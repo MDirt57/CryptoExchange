@@ -42,7 +42,7 @@
                 android:id="@+id/price"
                 android:layout_width="292dp"
                 android:layout_height="37dp"
-                android:layout_marginBottom="48dp"
+                android:layout_marginBottom="68dp"
                 android:text="44002.3783393728"
                 android:textAlignment="center"
                 android:textSize="24sp"
