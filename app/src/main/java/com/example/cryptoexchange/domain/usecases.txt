@@ -1,0 +1,2 @@
+1.Load data from local
+2.Load data from remote
