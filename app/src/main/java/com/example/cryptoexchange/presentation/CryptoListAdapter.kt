@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cryptoexchange.R
 import com.example.cryptoexchange.domain.CryptoItem
@@ -20,10 +21,12 @@ class CryptoListAdapter() : RecyclerView.Adapter<CryptoListAdapter.ViewHolder>()
         }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val name = view.findViewById<TextView>(R.id.name)
+        val crypto = view.findViewById<TextView>(R.id.crypto)
+        val currency = view.findViewById<TextView>(R.id.currency)
         val icon = view.findViewById<ImageView>(R.id.icon)
         val price = view.findViewById<TextView>(R.id.price)
         val lastUpdate = view.findViewById<TextView>(R.id.lastUpdate)
+        val card = view.findViewById<CardView>(R.id.card)
     }
 
     override fun onCreateViewHolder(
@@ -34,13 +37,22 @@ class CryptoListAdapter() : RecyclerView.Adapter<CryptoListAdapter.ViewHolder>()
         return ViewHolder(view)
     }
 
+
+
+    var onClickListener: ((item: CryptoItem) -> Unit)? = null
+
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: CryptoListAdapter.ViewHolder, position: Int) {
         val cryptoItem = cryptoItemList[position]
         with(holder) {
-            name.text = cryptoItem.name
-            price.text = cryptoItem.price.toString()
+            crypto.text = cryptoItem.crypto_name
+            currency.text = cryptoItem.currency_name
+            price.text = cryptoItem.price
             lastUpdate.text = "Час останнього оновлення: ${cryptoItem.lastUpdate}"
+
+            card.setOnClickListener {
+                onClickListener?.invoke(cryptoItem)
+            }
         }
     }
 

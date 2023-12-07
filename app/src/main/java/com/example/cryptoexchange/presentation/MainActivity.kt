@@ -1,5 +1,6 @@
 package com.example.cryptoexchange.presentation
 
+import android.content.Intent
 import android.os.Binder
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -53,6 +54,12 @@ class MainActivity : AppCompatActivity() {
         load_button = binding.loadButton
         load_button.setOnClickListener {
             viewModel.getLocalCryptoList()
+        }
+
+        adapter.onClickListener = {
+            val intent = Intent(this, CryptoInfoActivity::class.java)
+            intent.putExtra(CRYPTOITEMID, it.id)
+            startActivity(intent)
         }
 
     }
