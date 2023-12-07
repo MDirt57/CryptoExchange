@@ -2,6 +2,7 @@ package com.example.cryptoexchange.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import com.example.cryptoexchange.R
 import com.example.cryptoexchange.databinding.ActivityCryptoInfoBinding
@@ -16,11 +17,12 @@ class CryptoInfoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityCryptoInfoBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        Log.d("XXX", binding.root.toString())
 
 
         viewModel = ViewModelProvider(this)[CryptoInfoViewModel::class.java]
         viewModel.liveData.observe(this){
-            load_info(it)
+//            load_info(it)
         }
 
         val cryptoItemId = intent.getLongExtra(CRYPTOITEMID, 0L)
@@ -28,13 +30,13 @@ class CryptoInfoActivity : AppCompatActivity() {
 
     }
 
-    private fun load_info(item: CryptoItem){
-        with (binding){
-            cryptoName.text = item.crypto_name
-            currencyName.text = item.currency_name
-            priceInfo.text = item.price
-            lastUpdate.text = item.lastUpdate
-        }
-    }
+//    private fun load_info(item: CryptoItem){
+//        with (binding){
+//            cryptoName.text = item.crypto_name
+//            currencyName.text = item.currency_name
+//            priceInfo.text = item.price
+//            lastUpdate.text = item.lastUpdate
+//        }
+//    }
 
 }
