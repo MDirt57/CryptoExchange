@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:name="com.example.cryptoexchange.presentation.CryptoFragment"
     tools:context=".presentation.CryptoFragment"
     tools:layout="@layout/activity_crypto_info">
 
