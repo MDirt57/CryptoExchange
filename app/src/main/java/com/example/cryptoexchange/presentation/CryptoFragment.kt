@@ -1,6 +1,7 @@
 package com.example.cryptoexchange.presentation
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +21,7 @@ class CryptoFragment() : Fragment() {
     lateinit var viewModel: CryptoInfoViewModel
 
     private var cryptoItemId: Long = UNDEFINED
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,9 +45,12 @@ class CryptoFragment() : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         with (requireArguments()){
             cryptoItemId = getLong(CRYPTOITEMID)
         }
+
+        Log.d("EEE", "onCreate:")
     }
 
     private fun load_info(item: CryptoItem){

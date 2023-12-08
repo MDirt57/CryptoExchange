@@ -21,14 +21,17 @@ class CryptoInfoActivity : AppCompatActivity() {
 
 
         val cryptoItemId = intent.getLongExtra(CRYPTOITEMID, 0L)
-        setupFragment(CryptoFragment.newInstance(cryptoItemId))
+        if (savedInstanceState == null){
+            setupFragment(CryptoFragment.newInstance(cryptoItemId))
+        }
 
     }
 
     private fun setupFragment(fragment: CryptoFragment){
         supportFragmentManager
             .beginTransaction()
-            .add(R.id.crypto_item_container, fragment)
+//            .add(R.id.crypto_item_container, fragment)
+            .replace(R.id.crypto_item_container, fragment)
             .commit()
     }
 
