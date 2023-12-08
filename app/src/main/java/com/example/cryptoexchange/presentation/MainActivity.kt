@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,16 +18,23 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var cryptoList: RecyclerView
     private lateinit var load_button: Button
+    private var fragmentCryptoInfo: FragmentContainerView? = null
 
     private var testList: List<CryptoItem> = listOf()
 
     lateinit var viewModel: MainViewModel
 
     lateinit var binding: ActivityMainBinding
+
+    private val isPortrait: Boolean
+        get() = fragmentCryptoInfo == null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        fragmentCryptoInfo = binding.cryptoItemContainer
 
         cryptoList = binding.cryptoList
         cryptoList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
@@ -40,6 +48,8 @@ class MainActivity : AppCompatActivity() {
             Log.d(TAG, "MainViewModel liveData observe")
             Log.d(TAG, "$testList")
         }
+
+
 
 
 //        val testList = listOf(
@@ -57,12 +67,28 @@ class MainActivity : AppCompatActivity() {
         }
 
         adapter.onClickListener = {
-            val intent = Intent(this, CryptoInfoActivity::class.java)
-            intent.putExtra(CRYPTOITEMID, it.id)
-            startActivity(intent)
+            if (isPortrait){
+                setupActivity(it.id)
+            }else{
+                setupFragment(CryptoFragment.newInstance(it.id))
+            }
         }
 
 
+    }
+
+    private fun setupActivity(id: Long){
+        val intent = Intent(this, CryptoInfoActivity::class.java)
+        intent.putExtra(CRYPTOITEMID, id)
+        startActivity(intent)
+    }
+
+    private fun setupFragment(fragment: CryptoFragment){
+        supportFragmentManager
+            .beginTransaction()
+//            .add(R.id.crypto_item_container, fragment)
+            .replace(R.id.crypto_item_container, fragment)
+            .commit()
     }
 
     companion object{

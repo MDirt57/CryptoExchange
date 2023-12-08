@@ -6,8 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".presentation.CryptoInfoActivity"
-    tools:layout="@layout/activity_crypto_info">
-
-</androidx.fragment.app.FragmentContainerView>
+    tools:layout="@layout/activity_crypto_info"/>
 
 
