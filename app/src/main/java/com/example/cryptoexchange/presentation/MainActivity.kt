@@ -11,8 +11,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cryptoexchange.R
+import com.example.cryptoexchange.data.remote.CryptoDataResponse
+import com.example.cryptoexchange.data.remote.RetrofitObject
 import com.example.cryptoexchange.databinding.ActivityMainBinding
 import com.example.cryptoexchange.domain.CryptoItem
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,6 +30,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var viewModel: MainViewModel
 
     lateinit var binding: ActivityMainBinding
+
+    private var retrofitObject: RetrofitObject? = null
 
     private val isPortrait: Boolean
         get() = fragmentCryptoInfo == null
@@ -49,19 +56,21 @@ class MainActivity : AppCompatActivity() {
 
 
 
-
-//        val testList = listOf(
-//            CryptoItem("Item1", "", 3441.124f, "23:12:43"),
-//            CryptoItem("Item2", "", 3441.124f, "23:12:43"),
-//            CryptoItem("Item3", "", 3441.124f, "23:12:43"),
-//            CryptoItem("Item4", "", 3441.124f, "23:12:43"),
-//            CryptoItem("Item5", "", 3441.124f, "23:12:43"),
-//        )
-
-
         load_button = binding.loadButton
         load_button.setOnClickListener {
             viewModel.getLocalCryptoList()
+
+            Log.d("XXX", retrofitObject.toString())
+            retrofitObject?.get("BTC", "USD", object : Callback<CryptoDataResponse> {
+                override fun onResponse(call: Call<CryptoDataResponse>, response: Response<CryptoDataResponse>) {
+                    val body = response.body()
+                    Log.d("XXX", body.toString())
+                }
+
+                override fun onFailure(call: Call<CryptoDataResponse>, t: Throwable) {
+                    Log.e("XXX", "Retrofit: $t")
+                }
+            })
         }
 
         adapter.onClickListener = {
@@ -73,6 +82,17 @@ class MainActivity : AppCompatActivity() {
         }
 
 
+    }
+
+
+    override fun onStart() {
+        super.onStart()
+        retrofitObject = RetrofitObject("https://min-api.cryptocompare.com/")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        retrofitObject = null
     }
 
     private fun setupActivity(id: Long){
