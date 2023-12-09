@@ -8,11 +8,11 @@ import androidx.room.Update
 interface CryptoItemDao {
 
     @Update
-    fun updateCryptoItem(item: CryptoItemEntity)
+    suspend fun updateCryptoItem(item: CryptoItemEntity)
 
     @Query("SELECT * FROM cryptoTable WHERE id==:id LIMIT 1")
-    fun getItem(id: Long): CryptoItemEntity
+    suspend fun getItem(id: Long): CryptoItemEntity
 
     @Query("SELECT * FROM cryptoTable ORDER BY id ASC")
-    fun getItems(): List<CryptoItemEntity>
+    suspend fun getItems(): List<CryptoItemEntity>
 }

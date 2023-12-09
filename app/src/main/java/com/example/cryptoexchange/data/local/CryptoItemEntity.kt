@@ -8,7 +8,7 @@ import com.example.cryptoexchange.domain.CryptoItem
 data class CryptoItemEntity(
 
     @PrimaryKey(autoGenerate = true)
-    var id: Long = CryptoItem.UNDEFINED,
+    val id: Long,
 
     val crypto_name: String,
     val currency_name: String,

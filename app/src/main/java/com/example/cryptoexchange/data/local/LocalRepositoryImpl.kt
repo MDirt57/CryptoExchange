@@ -13,11 +13,11 @@ object LocalRepositoryImpl : LocalRepository{
             CryptoItem("Item5", "", "", "774", "23:12:43", id=7L),
         )
 
-    override fun getCryptoList(): List<CryptoItem> {
+    override suspend fun getCryptoList(): List<CryptoItem> {
         return testList
     }
 
-    override fun getCryptoItem(id: Long): CryptoItem {
+    override suspend fun getCryptoItem(id: Long): CryptoItem {
         return testList.first { it.id == id }
     }
 

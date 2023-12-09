@@ -8,12 +8,14 @@ class DataBaseRepository(context: Context): LocalRepository{
 
     private val dao = CryptoItemDB.getInstance(context).getDao()
 
-    override fun getCryptoList(): List<CryptoItem> {
-        TODO("Not yet implemented")
+    override suspend fun getCryptoList(): List<CryptoItem> {
+        val entities = dao.getItems()
+        return CryptoItemMapper.entitiesToCryptoList(entities)
     }
 
-    override fun getCryptoItem(id: Long): CryptoItem {
-        TODO("Not yet implemented")
+    override suspend fun getCryptoItem(id: Long): CryptoItem {
+        val entity = dao.getItem(id)
+        return CryptoItemMapper.entityToCryptoItem(entity)
     }
 
 }

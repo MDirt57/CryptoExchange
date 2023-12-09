@@ -6,7 +6,11 @@ import com.example.cryptoexchange.domain.LocalRepository
 class GetLocalCryptoList(
     private val repository: LocalRepository
 ) {
-    operator fun invoke(): List<CryptoItem>{
+//    suspend operator fun invoke(): List<CryptoItem>{
+//        return repository.getCryptoList()
+//    }
+
+    suspend fun getLocalCryptoList(): List<CryptoItem>{
         return repository.getCryptoList()
     }
 }

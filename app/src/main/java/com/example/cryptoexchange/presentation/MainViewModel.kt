@@ -1,8 +1,12 @@
 package com.example.cryptoexchange.presentation
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.cryptoexchange.data.local.DataBaseRepository
 import com.example.cryptoexchange.data.local.LocalRepositoryImpl
 import com.example.cryptoexchange.data.remote.RemoteRepositoryImpl
 import com.example.cryptoexchange.domain.CryptoItem
@@ -10,10 +14,12 @@ import com.example.cryptoexchange.domain.LocalRepository
 import com.example.cryptoexchange.domain.RemoteRepository
 import com.example.cryptoexchange.domain.usecases.GetLocalCryptoList
 import com.example.cryptoexchange.domain.usecases.GetRemoteCryptoList
+import kotlinx.coroutines.launch
 
-class MainViewModel : ViewModel() {
+class MainViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val localRepository: LocalRepository = LocalRepositoryImpl
+//    private val localRepository: LocalRepository = LocalRepositoryImpl
+    private val localRepository = DataBaseRepository(application)
     private val remoteRepository: RemoteRepository = RemoteRepositoryImpl
 
     private val _liveData = MutableLiveData<List<CryptoItem>>()
@@ -24,7 +30,9 @@ class MainViewModel : ViewModel() {
     private val getRemoteCryptoListUseCase = GetRemoteCryptoList(remoteRepository)
 
     fun getLocalCryptoList(){
-        _liveData.value = getLocalCryptoListUseCase()
+        viewModelScope.launch {
+            _liveData.value = getLocalCryptoListUseCase.getLocalCryptoList()
+        }
     }
 
     fun getRemoteCryptoList(){

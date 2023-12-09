@@ -21,7 +21,8 @@ abstract class CryptoItemDB : RoomDatabase(){
                     context.applicationContext,
                     CryptoItemDB::class.java,
                     "crypto_database"
-                ).build()
+                )
+                    .build()
                 INSTANCE = instance
                 instance
             }
