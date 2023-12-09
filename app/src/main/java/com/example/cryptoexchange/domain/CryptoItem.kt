@@ -6,9 +6,9 @@ data class CryptoItem(
     val icon: String,
     val price: String,
     val lastUpdate: String,
-//    val minimum: String,
-//    val maximum: String,
-//    val lastMarket: String,
+    val minimum: String = "",
+    val maximum: String = "",
+    val lastMarket: String = "",
     var id: Long = UNDEFINED
 )
 
