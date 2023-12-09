@@ -1,6 +1,7 @@
 package com.example.cryptoexchange.data.local
 
 import android.content.Context
+import android.util.Log
 import com.example.cryptoexchange.domain.CryptoItem
 import com.example.cryptoexchange.domain.LocalRepository
 
@@ -10,6 +11,7 @@ class DataBaseRepository(context: Context): LocalRepository{
 
     override suspend fun getCryptoList(): List<CryptoItem> {
         val entities = dao.getItems()
+        Log.d("XXX", "getCryptoList")
         return CryptoItemMapper.entitiesToCryptoList(entities)
     }
 

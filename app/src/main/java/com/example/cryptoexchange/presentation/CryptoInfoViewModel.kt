@@ -4,14 +4,11 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cryptoexchange.data.local.DataBaseRepository
-import com.example.cryptoexchange.data.local.LocalRepositoryImpl
 import com.example.cryptoexchange.data.remote.RemoteRepositoryImpl
 import com.example.cryptoexchange.domain.CryptoItem
 import com.example.cryptoexchange.domain.usecases.GetLocalCryptoItem
-import com.example.cryptoexchange.domain.usecases.GetLocalCryptoList
 import kotlinx.coroutines.launch
 
 class CryptoInfoViewModel(application: Application): AndroidViewModel(application) {

@@ -45,8 +45,6 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         viewModel.liveData.observe(this){
             adapter.cryptoItemList = it
-            Log.d(TAG, "MainViewModel liveData observe")
-            Log.d(TAG, "$testList")
         }
 
 

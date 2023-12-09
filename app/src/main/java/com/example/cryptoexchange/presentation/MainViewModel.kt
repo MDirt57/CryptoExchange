@@ -4,13 +4,10 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cryptoexchange.data.local.DataBaseRepository
-import com.example.cryptoexchange.data.local.LocalRepositoryImpl
 import com.example.cryptoexchange.data.remote.RemoteRepositoryImpl
 import com.example.cryptoexchange.domain.CryptoItem
-import com.example.cryptoexchange.domain.LocalRepository
 import com.example.cryptoexchange.domain.RemoteRepository
 import com.example.cryptoexchange.domain.usecases.GetLocalCryptoList
 import com.example.cryptoexchange.domain.usecases.GetRemoteCryptoList

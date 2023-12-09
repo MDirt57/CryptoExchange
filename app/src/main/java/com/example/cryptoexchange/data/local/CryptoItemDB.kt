@@ -1,6 +1,7 @@
 package com.example.cryptoexchange.data.local
 
 import android.content.Context
+import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -22,11 +23,34 @@ abstract class CryptoItemDB : RoomDatabase(){
                     CryptoItemDB::class.java,
                     "crypto_database"
                 )
+                    .apply {
+                        if (isDatabaseInit(context)){
+                            Log.d("XXX", "database will be created")
+                            fallbackToDestructiveMigration()
+                            createFromAsset("database/base_cryptodata.db")
+                            markDBInit(context)
+                        }
+                    }
                     .build()
                 INSTANCE = instance
+                Log.d("XXX", instance.toString())
                 instance
             }
         }
+
+        private val DBPREFS = "database"
+        private val DATABASE_INIT = "db_init"
+
+        private fun isDatabaseInit(context: Context): Boolean{
+            val prefs = context.getSharedPreferences(DBPREFS, Context.MODE_PRIVATE)
+            return prefs.getBoolean(DATABASE_INIT, false)
+        }
+
+        private fun markDBInit(context: Context){
+            val prefs = context.getSharedPreferences(DBPREFS, Context.MODE_PRIVATE)
+            prefs.edit().putBoolean(DATABASE_INIT, true).apply()
+        }
     }
+
 
 }
