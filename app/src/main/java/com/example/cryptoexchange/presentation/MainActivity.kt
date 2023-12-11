@@ -54,10 +54,18 @@ class MainActivity : AppCompatActivity() {
             adapter.cryptoItemList = it
         }
 
-
+        val tempItem = CryptoItem(
+            "SMT",
+            "USD",
+            "",
+            "34",
+            "00:00:23",
+            "23",
+            "100")
 
         load_button = binding.loadButton
         load_button.setOnClickListener {
+            viewModel.addLocalCryptoItem(tempItem)
             viewModel.getLocalCryptoList()
 
             Log.d("XXX", retrofitObject.toString())

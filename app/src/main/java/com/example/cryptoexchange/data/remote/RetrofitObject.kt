@@ -23,4 +23,5 @@ class RetrofitObject(baseUrl: String) {
         val call: Call<CryptoDataResponse> = service.getData(fsyms, tsyms)
         call.enqueue(callback)
     }
+
 }

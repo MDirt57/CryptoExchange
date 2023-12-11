@@ -9,8 +9,10 @@ import com.example.cryptoexchange.data.local.DataBaseRepository
 import com.example.cryptoexchange.data.remote.RemoteRepositoryImpl
 import com.example.cryptoexchange.domain.CryptoItem
 import com.example.cryptoexchange.domain.RemoteRepository
+import com.example.cryptoexchange.domain.usecases.AddLocalCryptoItem
 import com.example.cryptoexchange.domain.usecases.GetLocalCryptoList
 import com.example.cryptoexchange.domain.usecases.GetRemoteCryptoList
+import com.example.cryptoexchange.domain.usecases.UpdateLocalCryptoItem
 import kotlinx.coroutines.launch
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
@@ -25,6 +27,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private val getLocalCryptoListUseCase = GetLocalCryptoList(localRepository)
     private val getRemoteCryptoListUseCase = GetRemoteCryptoList(remoteRepository)
+    private val addLocalCryptoItemUseCase = AddLocalCryptoItem(localRepository)
+    private val updateLocalCryptoItemUseCase = UpdateLocalCryptoItem(localRepository)
 
     fun getLocalCryptoList(){
         viewModelScope.launch {
@@ -35,5 +39,18 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     fun getRemoteCryptoList(){
         _liveData.value = getRemoteCryptoListUseCase()
     }
+
+    fun addLocalCryptoItem(item: CryptoItem){
+        viewModelScope.launch {
+            addLocalCryptoItemUseCase.addLocalCryptoItem(item)
+        }
+    }
+
+    fun updateLocalCryptoItem(item: CryptoItem){
+        viewModelScope.launch {
+            updateLocalCryptoItemUseCase.updateLocalCryptoItem(item)
+        }
+    }
+
 
 }
