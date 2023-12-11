@@ -1,7 +1,6 @@
 package com.example.cryptoexchange.presentation
 
 import android.content.Intent
-import android.os.Binder
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -11,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cryptoexchange.R
-import com.example.cryptoexchange.data.remote.CryptoDataResponse
 import com.example.cryptoexchange.data.remote.RetrofitObject
 import com.example.cryptoexchange.databinding.ActivityMainBinding
 import com.example.cryptoexchange.domain.CryptoItem
@@ -19,9 +17,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
@@ -52,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         CoroutineScope(Dispatchers.Main).launch{
             while (isActive){
                 viewModel.getRemoteCryptoItem("10", "USD")
-                delay(3000)
+                delay(5000)
             }
         }
 
@@ -73,9 +68,9 @@ class MainActivity : AppCompatActivity() {
             "USD",
             "",
             "34",
-            "00:00:23",
             "23",
-            "100")
+            "100"
+        )
 
         load_button = binding.loadButton
         load_button.setOnClickListener {
@@ -96,7 +91,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        viewModel.openRemoteRepo("https://min-api.cryptocompare.com/")
+        viewModel.openRemoteRepo(BASEURL)
     }
 
     override fun onStop() {

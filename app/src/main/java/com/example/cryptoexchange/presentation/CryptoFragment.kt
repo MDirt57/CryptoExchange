@@ -5,13 +5,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.cryptoexchange.R
-import com.example.cryptoexchange.databinding.ActivityCryptoInfoBinding
 import com.example.cryptoexchange.databinding.FragmentCryptoInfoBinding
 import com.example.cryptoexchange.domain.CryptoItem
+import com.squareup.picasso.Picasso
 
 
 class CryptoFragment() : Fragment() {
@@ -61,7 +59,7 @@ class CryptoFragment() : Fragment() {
             minValue.text = item.minimum
             maxValue.text = item.maximum
             lastMarket.text = "Остання угода: ${item.lastMarket}"
-            lastUpdate.text = "Час останнього оновлення:${item.lastUpdate}"
+            Picasso.get().load(BASEIMAGEURL+item.icon).into(largeIcon)
         }
     }
 

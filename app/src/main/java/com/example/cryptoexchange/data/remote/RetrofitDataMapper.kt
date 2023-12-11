@@ -3,8 +3,6 @@ package com.example.cryptoexchange.data.remote
 import android.util.Log
 import com.example.cryptoexchange.domain.CryptoItem
 import com.example.cryptoexchange.presentation.UNDEFINED
-import java.time.LocalDateTime
-import java.util.Calendar
 
 //object RetrofitDataMapper {
 //
@@ -30,7 +28,6 @@ import java.util.Calendar
 
 object RetrofitDataMapper {
 
-    var time = 0
     fun RetrofitDataToCryptoList(data: CryptoDataResponse?, currency: String): List<CryptoItem> {
         val cryptoList = mutableListOf<CryptoItem>()
         data?.let {
@@ -44,19 +41,18 @@ object RetrofitDataMapper {
                                 currency,
                                 IMAGEURL ?: "",
                                 PRICE ?: "",
-                                time.toString(),
                                 LOWHOUR ?: "",
                                 HIGHHOUR ?: "",
                                 MARKET ?: "",
                                 UNDEFINED
-                            )
+                            ).apply {
+                                id = (crypto_name.hashCode() + currency_name.hashCode())%65521.toLong()
+                            }
                         )
                     }
                 }
             }
         }
-        time += 3
-        Log.d("XXX", "time: $time")
         return cryptoList
     }
 

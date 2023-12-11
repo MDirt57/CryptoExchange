@@ -126,12 +126,6 @@
             android:layout_height="wrap_content"
             android:text="Остання угода: CCCAGG" />
 
-        <TextView
-            android:id="@+id/last_update"
-            style="@style/info_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Оновлено: 19:34:23" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

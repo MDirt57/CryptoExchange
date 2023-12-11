@@ -11,6 +11,7 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cryptoexchange.R
 import com.example.cryptoexchange.domain.CryptoItem
+import com.squareup.picasso.Picasso
 
 class CryptoListAdapter() : RecyclerView.Adapter<CryptoListAdapter.ViewHolder>() {
 
@@ -25,7 +26,6 @@ class CryptoListAdapter() : RecyclerView.Adapter<CryptoListAdapter.ViewHolder>()
         val currency = view.findViewById<TextView>(R.id.currency)
         val icon = view.findViewById<ImageView>(R.id.icon)
         val price = view.findViewById<TextView>(R.id.price)
-        val lastUpdate = view.findViewById<TextView>(R.id.lastUpdate)
         val card = view.findViewById<CardView>(R.id.card)
     }
 
@@ -48,7 +48,7 @@ class CryptoListAdapter() : RecyclerView.Adapter<CryptoListAdapter.ViewHolder>()
             crypto.text = cryptoItem.crypto_name
             currency.text = cryptoItem.currency_name
             price.text = cryptoItem.price
-            lastUpdate.text = "Час останнього оновлення: ${cryptoItem.lastUpdate}"
+            Picasso.get().load(BASEIMAGEURL+cryptoItem.icon).into(icon)
 
             card.setOnClickListener {
                 onClickListener?.invoke(cryptoItem)

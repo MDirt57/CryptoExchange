@@ -20,6 +20,6 @@ interface CryptoItemDao {
     @Query("SELECT * FROM cryptoTable WHERE id==:id LIMIT 1")
     suspend fun getItem(id: Long): CryptoItemEntity
 
-    @Query("SELECT * FROM cryptoTable ORDER BY id ASC")
+    @Query("SELECT * FROM cryptoTable ORDER BY crypto_name ASC")
     suspend fun getItems(): List<CryptoItemEntity>
 }

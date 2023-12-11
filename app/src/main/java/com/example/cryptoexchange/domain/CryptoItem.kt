@@ -5,7 +5,6 @@ data class CryptoItem(
     val currency_name: String,
     val icon: String = "",
     val price: String = "",
-    val lastUpdate: String = "",
     val minimum: String = "",
     val maximum: String = "",
     val lastMarket: String = "",

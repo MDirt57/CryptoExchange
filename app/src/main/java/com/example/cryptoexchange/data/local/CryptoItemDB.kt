@@ -6,7 +6,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [CryptoItemEntity::class], version = 1)
+@Database(entities = [CryptoItemEntity::class], version = 3)
 abstract class CryptoItemDB : RoomDatabase(){
 
     abstract fun getDao(): CryptoItemDao
@@ -22,7 +22,9 @@ abstract class CryptoItemDB : RoomDatabase(){
                     context.applicationContext,
                     CryptoItemDB::class.java,
                     "crypto_database"
-                ).build()
+                )
+                    .fallbackToDestructiveMigration()
+                    .build()
 
                 INSTANCE = instance
                 Log.d("XXX", instance.toString())
