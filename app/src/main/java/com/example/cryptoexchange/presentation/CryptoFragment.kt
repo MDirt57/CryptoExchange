@@ -57,8 +57,11 @@ class CryptoFragment() : Fragment() {
         with (binding){
             cryptoName.text = item.crypto_name
             currencyName.text = item.currency_name
-            priceInfo.text = item.price
-            lastUpdate.text = item.lastUpdate
+            priceInfo.text = "Ціна:${item.price}"
+            minValue.text = item.minimum
+            maxValue.text = item.maximum
+            lastMarket.text = "Остання угода: ${item.lastMarket}"
+            lastUpdate.text = "Час останнього оновлення:${item.lastUpdate}"
         }
     }
 

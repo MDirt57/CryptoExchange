@@ -26,7 +26,12 @@ class DataBaseRepository(context: Context): LocalRepository{
 
     override suspend fun updateCryptoItem(item: CryptoItem) {
         val entity = CryptoItemMapper.cryptoItemToEntity(item)
-        dao.updateCryptoItem(entity)
+        if (dao.isCryptoItemExist(item.crypto_name, item.currency_name)){
+            dao.updateCryptoItem(entity)
+        }else{
+            dao.addCryptoItem(entity)
+        }
+
     }
 
 }

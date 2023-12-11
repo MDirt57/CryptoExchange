@@ -11,6 +11,9 @@ interface CryptoItemDao {
     @Update
     suspend fun updateCryptoItem(item: CryptoItemEntity)
 
+    @Query("SELECT EXISTS(SELECT * FROM cryptoTable WHERE crypto_name==:crypto_name AND currency_name==:currency_name)")
+    suspend fun isCryptoItemExist(crypto_name: String, currency_name: String): Boolean
+
     @Insert
     suspend fun addCryptoItem(item: CryptoItemEntity)
 

@@ -15,6 +15,10 @@ import com.example.cryptoexchange.data.remote.CryptoDataResponse
 import com.example.cryptoexchange.data.remote.RetrofitObject
 import com.example.cryptoexchange.databinding.ActivityMainBinding
 import com.example.cryptoexchange.domain.CryptoItem
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -43,6 +47,15 @@ class MainActivity : AppCompatActivity() {
 
         fragmentCryptoInfo = binding.cryptoItemContainer
 
+
+        val isActive = true
+        CoroutineScope(Dispatchers.Main).launch{
+            while (isActive){
+                Log.d("XXX", "Coroutine")
+                delay(3000)
+            }
+        }
+
         cryptoList = binding.cryptoList
         cryptoList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
@@ -52,6 +65,7 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         viewModel.liveData.observe(this){
             adapter.cryptoItemList = it
+            Log.d("XXX", "List: $it")
         }
 
         val tempItem = CryptoItem(
@@ -65,20 +79,8 @@ class MainActivity : AppCompatActivity() {
 
         load_button = binding.loadButton
         load_button.setOnClickListener {
-            viewModel.addLocalCryptoItem(tempItem)
-            viewModel.getLocalCryptoList()
-
-            Log.d("XXX", retrofitObject.toString())
-            retrofitObject?.get("BTC", "USD", object : Callback<CryptoDataResponse> {
-                override fun onResponse(call: Call<CryptoDataResponse>, response: Response<CryptoDataResponse>) {
-                    val body = response.body()
-                    Log.d("XXX", body.toString())
-                }
-
-                override fun onFailure(call: Call<CryptoDataResponse>, t: Throwable) {
-                    Log.e("XXX", "Retrofit: $t")
-                }
-            })
+            viewModel.getRemoteCryptoItem("BTC", "USD")
+            viewModel.getRemoteCryptoItem("TRX", "USD")
         }
 
         adapter.onClickListener = {
@@ -95,12 +97,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        retrofitObject = RetrofitObject("https://min-api.cryptocompare.com/")
+        viewModel.openRemoteRepo("https://min-api.cryptocompare.com/")
     }
 
     override fun onStop() {
         super.onStop()
-        retrofitObject = null
+        viewModel.closeRemoteRepo()
     }
 
     private fun setupActivity(id: Long){

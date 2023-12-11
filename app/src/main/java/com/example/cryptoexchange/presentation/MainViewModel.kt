@@ -1,32 +1,34 @@
 package com.example.cryptoexchange.presentation
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.cryptoexchange.data.local.DataBaseRepository
-import com.example.cryptoexchange.data.remote.RemoteRepositoryImpl
+import com.example.cryptoexchange.data.remote.CryptoDataResponse
+import com.example.cryptoexchange.data.remote.RetrofitDataMapper
+import com.example.cryptoexchange.data.remote.RetrofitObject
 import com.example.cryptoexchange.domain.CryptoItem
-import com.example.cryptoexchange.domain.RemoteRepository
 import com.example.cryptoexchange.domain.usecases.AddLocalCryptoItem
 import com.example.cryptoexchange.domain.usecases.GetLocalCryptoList
-import com.example.cryptoexchange.domain.usecases.GetRemoteCryptoList
 import com.example.cryptoexchange.domain.usecases.UpdateLocalCryptoItem
 import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
-//    private val localRepository: LocalRepository = LocalRepositoryImpl
     private val localRepository = DataBaseRepository(application)
-    private val remoteRepository: RemoteRepository = RemoteRepositoryImpl
+    private var remoteRepository: RetrofitObject? = null
 
     private val _liveData = MutableLiveData<List<CryptoItem>>()
     val liveData: LiveData<List<CryptoItem>>
         get() = _liveData
 
     private val getLocalCryptoListUseCase = GetLocalCryptoList(localRepository)
-    private val getRemoteCryptoListUseCase = GetRemoteCryptoList(remoteRepository)
     private val addLocalCryptoItemUseCase = AddLocalCryptoItem(localRepository)
     private val updateLocalCryptoItemUseCase = UpdateLocalCryptoItem(localRepository)
 
@@ -36,9 +38,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun getRemoteCryptoList(){
-        _liveData.value = getRemoteCryptoListUseCase()
-    }
 
     fun addLocalCryptoItem(item: CryptoItem){
         viewModelScope.launch {
@@ -52,5 +51,35 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    fun openRemoteRepo(baseUrl: String){
+        remoteRepository = RetrofitObject(baseUrl)
+    }
+
+    fun closeRemoteRepo(){
+        remoteRepository = null
+    }
+
+    fun getRemoteCryptoItem(crypto_name: String, currency_name: String){
+
+        remoteRepository?.get(crypto_name, currency_name, object : Callback<CryptoDataResponse> {
+            override fun onResponse(call: Call<CryptoDataResponse>, response: Response<CryptoDataResponse>) {
+                val body = response.body()
+//                Log.d("XXX", "Retrofit response: ${body.toString()}")
+                val cryptoItem = RetrofitDataMapper.RetrofitDataToCryptoItem(body, CryptoItem(crypto_name, currency_name))
+//                Log.d("XXX", "CryptoItem from retrofit: ${cryptoItem.toString()}")
+                cryptoItem?.let{
+                    viewModelScope.launch{
+                        updateLocalCryptoItemUseCase.updateLocalCryptoItem(it)
+                    }
+                }
+                getLocalCryptoList()
+            }
+
+            override fun onFailure(call: Call<CryptoDataResponse>, t: Throwable) {
+                Log.e("XXX", "Retrofit: $t")
+            }
+        })
+
+    }
 
 }
