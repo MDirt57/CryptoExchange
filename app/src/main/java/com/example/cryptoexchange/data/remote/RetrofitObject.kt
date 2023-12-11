@@ -19,8 +19,8 @@ class RetrofitObject(baseUrl: String) {
         service = retrofit.create(GetService::class.java)
     }
 
-    fun get(fsyms: String, tsyms: String, callback: Callback<CryptoDataResponse>){
-        val call: Call<CryptoDataResponse> = service.getData(fsyms, tsyms)
+    fun get(limit: String, tsym: String, callback: Callback<CryptoDataResponse>){
+        val call: Call<CryptoDataResponse> = service.getData(limit, tsym)
         call.enqueue(callback)
     }
 

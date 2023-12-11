@@ -28,6 +28,7 @@ class DataBaseRepository(context: Context): LocalRepository{
         val entity = CryptoItemMapper.cryptoItemToEntity(item)
         if (dao.isCryptoItemExist(item.crypto_name, item.currency_name)){
             dao.updateCryptoItem(entity)
+            Log.d("XXX", "Update Item: ${entity.toString()}")
         }else{
             dao.addCryptoItem(entity)
         }

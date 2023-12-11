@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         val isActive = true
         CoroutineScope(Dispatchers.Main).launch{
             while (isActive){
-                Log.d("XXX", "Coroutine")
+                viewModel.getRemoteCryptoItem("10", "USD")
                 delay(3000)
             }
         }
@@ -79,8 +79,7 @@ class MainActivity : AppCompatActivity() {
 
         load_button = binding.loadButton
         load_button.setOnClickListener {
-            viewModel.getRemoteCryptoItem("BTC", "USD")
-            viewModel.getRemoteCryptoItem("TRX", "USD")
+            viewModel.getRemoteCryptoItem("10", "USD")
         }
 
         adapter.onClickListener = {

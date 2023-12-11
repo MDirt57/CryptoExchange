@@ -6,9 +6,9 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface GetService {
-    @GET("data/pricemultifull")
+    @GET("data/top/totalvolfull")
     fun getData(
-        @Query("fsyms") fsyms: String,
-        @Query("tsyms") tsyms: String,
+        @Query("limit") limit: String,
+        @Query("tsym") tsym: String,
         ): Call<CryptoDataResponse>
 }

@@ -59,17 +59,16 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         remoteRepository = null
     }
 
-    fun getRemoteCryptoItem(crypto_name: String, currency_name: String){
+    fun getRemoteCryptoItem(limit: String, currency_name: String){
 
-        remoteRepository?.get(crypto_name, currency_name, object : Callback<CryptoDataResponse> {
+        remoteRepository?.get(limit, currency_name, object : Callback<CryptoDataResponse> {
             override fun onResponse(call: Call<CryptoDataResponse>, response: Response<CryptoDataResponse>) {
                 val body = response.body()
-//                Log.d("XXX", "Retrofit response: ${body.toString()}")
-                val cryptoItem = RetrofitDataMapper.RetrofitDataToCryptoItem(body, CryptoItem(crypto_name, currency_name))
-//                Log.d("XXX", "CryptoItem from retrofit: ${cryptoItem.toString()}")
-                cryptoItem?.let{
-                    viewModelScope.launch{
-                        updateLocalCryptoItemUseCase.updateLocalCryptoItem(it)
+                Log.d("XXX", "Retrofit response: ${body.toString()}")
+                val cryptoList = RetrofitDataMapper.RetrofitDataToCryptoList(body, currency_name)
+                viewModelScope.launch {
+                    for (cryptoItem in cryptoList){
+                        updateLocalCryptoItemUseCase.updateLocalCryptoItem(cryptoItem)
                     }
                 }
                 getLocalCryptoList()
