@@ -35,10 +35,12 @@ class CryptoFragment() : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this)[CryptoInfoViewModel::class.java]
         viewModel.liveData.observe(viewLifecycleOwner){
-            load_info(it)
+            val cryptoItem = it.find {it.id == cryptoItemId}
+            cryptoItem?.let{
+                load_info(cryptoItem)
+            }
         }
 
-        viewModel.getLocalCryptoItem(cryptoItemId)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,5 +1,6 @@
 package com.example.cryptoexchange.data.local
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
@@ -21,5 +22,5 @@ interface CryptoItemDao {
     suspend fun getItem(id: Long): CryptoItemEntity
 
     @Query("SELECT * FROM cryptoTable ORDER BY crypto_name ASC")
-    suspend fun getItems(): List<CryptoItemEntity>
+    fun getItems(): LiveData<List<CryptoItemEntity>>
 }

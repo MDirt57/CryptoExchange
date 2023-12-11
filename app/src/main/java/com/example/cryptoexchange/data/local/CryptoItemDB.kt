@@ -32,19 +32,5 @@ abstract class CryptoItemDB : RoomDatabase(){
             }
         }
 
-//        private val DBPREFS = "database"
-//        private val DATABASE_INIT = "db_init"
-//
-//        private fun isDatabaseInit(context: Context): Boolean{
-//            val prefs = context.getSharedPreferences(DBPREFS, Context.MODE_PRIVATE)
-//            return prefs.getBoolean(DATABASE_INIT, false)
-//        }
-//
-//        private fun markDBInit(context: Context){
-//            val prefs = context.getSharedPreferences(DBPREFS, Context.MODE_PRIVATE)
-//            prefs.edit().putBoolean(DATABASE_INIT, true).apply()
-//        }
-//    }
-
     }
 }

@@ -10,9 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cryptoexchange.R
-import com.example.cryptoexchange.data.remote.RetrofitObject
 import com.example.cryptoexchange.databinding.ActivityMainBinding
-import com.example.cryptoexchange.domain.CryptoItem
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -21,16 +19,12 @@ import kotlinx.coroutines.launch
 class MainActivity : AppCompatActivity() {
 
     private lateinit var cryptoList: RecyclerView
-    private lateinit var load_button: Button
     private var fragmentCryptoInfo: FragmentContainerView? = null
-
-    private var testList: List<CryptoItem> = listOf()
 
     lateinit var viewModel: MainViewModel
 
     lateinit var binding: ActivityMainBinding
-
-    private var retrofitObject: RetrofitObject? = null
+    private var isActive: Boolean = false
 
     private val isPortrait: Boolean
         get() = fragmentCryptoInfo == null
@@ -43,7 +37,6 @@ class MainActivity : AppCompatActivity() {
         fragmentCryptoInfo = binding.cryptoItemContainer
 
 
-        val isActive = true
         CoroutineScope(Dispatchers.Main).launch{
             while (isActive){
                 viewModel.getRemoteCryptoItem("10", "USD")
@@ -59,22 +52,8 @@ class MainActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         viewModel.liveData.observe(this){
-            adapter.cryptoItemList = it
+            adapter.submitList(it)
             Log.d("XXX", "List: $it")
-        }
-
-        val tempItem = CryptoItem(
-            "SMT",
-            "USD",
-            "",
-            "34",
-            "23",
-            "100"
-        )
-
-        load_button = binding.loadButton
-        load_button.setOnClickListener {
-            viewModel.getRemoteCryptoItem("10", "USD")
         }
 
         adapter.onClickListener = {
@@ -92,11 +71,13 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         viewModel.openRemoteRepo(BASEURL)
+        isActive = true
     }
 
     override fun onStop() {
         super.onStop()
         viewModel.closeRemoteRepo()
+        isActive = false
     }
 
     private fun setupActivity(id: Long){
@@ -108,7 +89,6 @@ class MainActivity : AppCompatActivity() {
     private fun setupFragment(fragment: CryptoFragment){
         supportFragmentManager
             .beginTransaction()
-//            .add(R.id.crypto_item_container, fragment)
             .replace(R.id.crypto_item_container, fragment)
             .commit()
     }

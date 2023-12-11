@@ -24,19 +24,18 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val localRepository = DataBaseRepository(application)
     private var remoteRepository: RetrofitObject? = null
 
-    private val _liveData = MutableLiveData<List<CryptoItem>>()
     val liveData: LiveData<List<CryptoItem>>
-        get() = _liveData
+        get() = getLocalCryptoListUseCase()
 
     private val getLocalCryptoListUseCase = GetLocalCryptoList(localRepository)
     private val addLocalCryptoItemUseCase = AddLocalCryptoItem(localRepository)
     private val updateLocalCryptoItemUseCase = UpdateLocalCryptoItem(localRepository)
 
-    fun getLocalCryptoList(){
-        viewModelScope.launch {
-            _liveData.value = getLocalCryptoListUseCase.getLocalCryptoList()
-        }
-    }
+//    fun getLocalCryptoList(){
+//        viewModelScope.launch {
+//            _liveData.value = getLocalCryptoListUseCase.getLocalCryptoList()
+//        }
+//    }
 
 
     fun addLocalCryptoItem(item: CryptoItem){
@@ -71,7 +70,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                         updateLocalCryptoItemUseCase.updateLocalCryptoItem(cryptoItem)
                     }
                 }
-                getLocalCryptoList()
             }
 
             override fun onFailure(call: Call<CryptoDataResponse>, t: Throwable) {

@@ -3,11 +3,9 @@ package com.example.cryptoexchange.presentation
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import androidx.lifecycle.ViewModelProvider
 import com.example.cryptoexchange.R
 import com.example.cryptoexchange.databinding.ActivityCryptoInfoBinding
-import com.example.cryptoexchange.databinding.ActivityMainBinding
-import com.example.cryptoexchange.domain.CryptoItem
+
 
 class CryptoInfoActivity : AppCompatActivity() {
 
@@ -30,7 +28,6 @@ class CryptoInfoActivity : AppCompatActivity() {
     private fun setupFragment(fragment: CryptoFragment){
         supportFragmentManager
             .beginTransaction()
-//            .add(R.id.crypto_item_container, fragment)
             .replace(R.id.crypto_item_container, fragment)
             .commit()
     }

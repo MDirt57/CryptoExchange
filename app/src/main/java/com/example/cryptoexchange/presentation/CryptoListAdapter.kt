@@ -1,25 +1,20 @@
 package com.example.cryptoexchange.presentation
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cryptoexchange.R
 import com.example.cryptoexchange.domain.CryptoItem
 import com.squareup.picasso.Picasso
 
-class CryptoListAdapter() : RecyclerView.Adapter<CryptoListAdapter.ViewHolder>() {
-
-    var cryptoItemList = listOf<CryptoItem>()
-        set(value) {
-            field = value
-            notifyDataSetChanged() //FIXME
-        }
+class CryptoListAdapter() : ListAdapter<CryptoItem, CryptoListAdapter.ViewHolder>(DiffUtilItemCallback()) {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val crypto = view.findViewById<TextView>(R.id.crypto)
@@ -38,12 +33,11 @@ class CryptoListAdapter() : RecyclerView.Adapter<CryptoListAdapter.ViewHolder>()
     }
 
 
-
     var onClickListener: ((item: CryptoItem) -> Unit)? = null
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: CryptoListAdapter.ViewHolder, position: Int) {
-        val cryptoItem = cryptoItemList[position]
+        val cryptoItem = getItem(position)
         with(holder) {
             crypto.text = cryptoItem.crypto_name
             currency.text = cryptoItem.currency_name
@@ -56,7 +50,16 @@ class CryptoListAdapter() : RecyclerView.Adapter<CryptoListAdapter.ViewHolder>()
         }
     }
 
-    override fun getItemCount(): Int {
-        return cryptoItemList.size
+
+    class DiffUtilItemCallback: DiffUtil.ItemCallback<CryptoItem>(){
+        override fun areItemsTheSame(oldItem: CryptoItem, newItem: CryptoItem): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: CryptoItem, newItem: CryptoItem): Boolean {
+            return oldItem.id == newItem.id
+        }
+
     }
+
 }
