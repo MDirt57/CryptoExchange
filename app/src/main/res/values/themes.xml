@@ -3,6 +3,7 @@
     <style name="Base.Theme.CryptoExchange" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/theme_color</item>
     </style>
 
     <style name="Theme.CryptoExchange" parent="Base.Theme.CryptoExchange" />

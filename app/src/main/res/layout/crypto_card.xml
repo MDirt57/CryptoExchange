@@ -2,12 +2,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/background_style"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/card"
-        android:layout_width="357dp"
+        style="@style/card_style"
+        android:layout_width="match_parent"
         android:layout_height="157dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,7 +21,7 @@
 
             <LinearLayout
                 android:id="@+id/name"
-                android:layout_width="92dp"
+                android:layout_width="100dp"
                 android:layout_height="31dp"
                 android:layout_marginTop="16dp"
                 android:orientation="horizontal"
@@ -30,6 +32,7 @@
 
                 <TextView
                     android:id="@+id/crypto"
+                    style="@style/text_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -39,6 +42,7 @@
 
                 <TextView
                     android:id="@+id/separator"
+                    style="@style/text_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -48,6 +52,7 @@
 
                 <TextView
                     android:id="@+id/currency"
+                    style="@style/text_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -67,9 +72,10 @@
 
             <TextView
                 android:id="@+id/price"
+                style="@style/text_style"
                 android:layout_width="292dp"
                 android:layout_height="37dp"
-                android:layout_marginBottom="60dp"
+                android:layout_marginBottom="44dp"
                 android:text="44002.3783393728"
                 android:textAlignment="center"
                 android:textSize="24sp"
@@ -80,6 +86,6 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

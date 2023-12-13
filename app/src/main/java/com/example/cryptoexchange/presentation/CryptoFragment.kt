@@ -57,10 +57,10 @@ class CryptoFragment() : Fragment() {
         with (binding){
             cryptoName.text = item.crypto_name
             currencyName.text = item.currency_name
-            priceInfo.text = "Ціна:${item.price}"
+            priceValue.text = item.price
             minValue.text = item.minimum
             maxValue.text = item.maximum
-            lastMarket.text = "Остання угода: ${item.lastMarket}"
+            lastMarketValue.text = item.lastMarket
             Picasso.get().load(BASEIMAGEURL+item.icon).into(largeIcon)
         }
     }
