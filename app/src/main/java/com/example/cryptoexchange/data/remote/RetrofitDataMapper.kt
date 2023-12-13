@@ -21,7 +21,11 @@ object RetrofitDataMapper {
                                 LOWHOUR ?: "",
                                 HIGHHOUR ?: "",
                                 MARKET ?: "",
-                                UNDEFINED
+                                CHANGEDAY ?: "",
+                                CHANGEHOUR ?: "",
+                                SUPPLY ?: "",
+                                MKTCAP ?: "",
+                                id = UNDEFINED
                             ).apply {
                                 id = (crypto_name.hashCode() + currency_name.hashCode())%65521.toLong()
                             }

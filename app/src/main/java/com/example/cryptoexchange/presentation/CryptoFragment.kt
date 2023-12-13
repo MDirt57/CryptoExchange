@@ -61,6 +61,10 @@ class CryptoFragment() : Fragment() {
             minValue.text = item.minimum
             maxValue.text = item.maximum
             lastMarketValue.text = item.lastMarket
+            changedayValue.text = item.changeDay
+            changehourValue.text = item.changeHour
+            supplyValue.text = item.supply
+            mktcapValue.text = item.mktcap
             Picasso.get().load(BASEIMAGEURL+item.icon).into(largeIcon)
         }
     }

@@ -8,6 +8,10 @@ data class CryptoItem(
     val minimum: String = "",
     val maximum: String = "",
     val lastMarket: String = "",
+    val changeDay: String = "",
+    val changeHour: String = "",
+    val supply: String = "",
+    val mktcap: String = "",
     var id: Long = UNDEFINED
 )
 

@@ -14,7 +14,11 @@ data class CryptoInfo(
     var MARKET: String? = null,
     var HIGHHOUR: String? = null,
     var LOWHOUR: String? = null,
-    var IMAGEURL: String? = null
+    var IMAGEURL: String? = null,
+    var CHANGEDAY: String? = null,
+    var CHANGEHOUR: String? = null,
+    var SUPPLY: String? = null,
+    var MKTCAP: String? = null,
 )
 
 //data class CryptoDataResponse(

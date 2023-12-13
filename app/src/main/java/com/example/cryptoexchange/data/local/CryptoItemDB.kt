@@ -6,7 +6,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [CryptoItemEntity::class], version = 3)
+@Database(entities = [CryptoItemEntity::class], version = 4)
 abstract class CryptoItemDB : RoomDatabase(){
 
     abstract fun getDao(): CryptoItemDao

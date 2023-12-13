@@ -13,7 +13,11 @@ object CryptoItemMapper {
             entity.minimum,
             entity.maximum,
             entity.lastMarket,
-            entity.id,
+            entity.changeDay,
+            entity.changeHour,
+            entity.supply,
+            entity.mktcap,
+            id = entity.id,
         )
     }
 
@@ -27,6 +31,10 @@ object CryptoItemMapper {
             item.minimum,
             item.maximum,
             item.lastMarket,
+            item.changeDay,
+            item.changeHour,
+            item.supply,
+            item.mktcap,
         )
     }
 

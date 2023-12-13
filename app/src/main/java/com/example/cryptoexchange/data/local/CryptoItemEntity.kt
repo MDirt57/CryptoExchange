@@ -15,6 +15,9 @@ data class CryptoItemEntity(
     val price: String,
     val minimum: String,
     val maximum: String,
-    val lastMarket: String
-
+    val lastMarket: String,
+    val changeDay: String,
+    val changeHour: String,
+    val supply: String,
+    val mktcap: String,
 )
