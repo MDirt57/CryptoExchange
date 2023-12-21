@@ -21,8 +21,8 @@
 
             <LinearLayout
                 android:id="@+id/name"
-                android:layout_width="100dp"
-                android:layout_height="31dp"
+                android:layout_width="154dp"
+                android:layout_height="33dp"
                 android:layout_marginTop="16dp"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -43,7 +43,7 @@
                 <TextView
                     android:id="@+id/separator"
                     style="@style/text_style"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/separator"
@@ -76,6 +76,7 @@
                 android:layout_width="292dp"
                 android:layout_height="37dp"
                 android:layout_marginBottom="44dp"
+                android:maxLength="20"
                 android:text="44002.3783393728"
                 android:textAlignment="center"
                 android:textSize="24sp"

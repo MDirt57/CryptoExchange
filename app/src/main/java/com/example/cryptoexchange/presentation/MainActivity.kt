@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
 
         CoroutineScope(Dispatchers.Main).launch{
             while (isActive){
-                viewModel.getRemoteCryptoItem("30", "USD")
+                viewModel.getRemoteCryptoItem("100", "USD")
                 delay(5000)
             }
         }
