@@ -2,7 +2,6 @@
     <string name="app_name">CryptoExchange</string>
     <string name="separator">/</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="price_info">Price:&#160;</string>
     <string name="min_per_day">LowHour:&#160;</string>
     <string name="max_per_day">HighHour:&#160;</string>
